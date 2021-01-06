@@ -330,7 +330,7 @@ def lead(x, n = 1, default = None):
 
 
 @lead.register(SeriesGroupBy)
-def _lead_grouped(x, n = 1, default = None):
+def _lead_grouped(x, n = 1, default = None) -> SeriesGroupBy:
     res = x.shift(-1*n, fill_value = default)
 
     return _regroup(res, x)
@@ -371,7 +371,7 @@ def lag(x, n = 1, default = None):
 
 
 @lag.register(SeriesGroupBy)
-def _lag_grouped(x, n = 1, default = None):
+def _lag_grouped(x, n = 1, default = None) -> SeriesGroupBy:
     res = x.shift(n, fill_value = default)
 
     return _regroup(res, x)

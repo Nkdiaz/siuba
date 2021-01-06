@@ -136,6 +136,14 @@ def sql_func_diff(col, periods = 1):
 
     raise ValueError("periods argument to sql diff cannot be 0")
 
+def sql_func_shift(col, periods = 1):
+    if periods > 0:
+        return win_cuml("lag", periods)
+    elif periods < 0:
+        return win_cuml("lead", abs(periods))
+
+    raise ValueError("periods argument to sql diff cannot be 0")
+
 
 # Ordered and theoretical set aggregates ----
 
@@ -428,8 +436,7 @@ base_win = dict(
         #first = win_over2("first"),
         #last = win_over2("last"),
         #nth = win_over3
-        #lead = win_over4
-        #lag
+        shift = sql_func_shift,
 
         # aggregate functions ---
         mean = win_agg("avg"),
